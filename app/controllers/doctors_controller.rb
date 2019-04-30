@@ -1,24 +1,18 @@
 class DoctorsController < ApplicationController
-  before_action :set_doctor, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_doctor, only: [:show, :update, :destroy]
+  before_action :json_request
   # GET /doctors
   # GET /doctors.json
   def index
     @doctors = Doctor.all
+    respond_to do |format|
+      format.json { render json: @doctors }
+    end
   end
 
   # GET /doctors/1
   # GET /doctors/1.json
   def show
-  end
-
-  # GET /doctors/new
-  def new
-    @doctor = Doctor.new
-  end
-
-  # GET /doctors/1/edit
-  def edit
   end
 
   # POST /doctors
@@ -28,10 +22,8 @@ class DoctorsController < ApplicationController
 
     respond_to do |format|
       if @doctor.save
-        format.html { redirect_to @doctor, notice: 'Doctor was successfully created.' }
         format.json { render :show, status: :created, location: @doctor }
       else
-        format.html { render :new }
         format.json { render json: @doctor.errors, status: :unprocessable_entity }
       end
     end
@@ -62,13 +54,15 @@ class DoctorsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_doctor
       @doctor = Doctor.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def doctor_params
-      params.require(:doctor).permit(:name, :crm, :phone)
+      params.require(:doctor).permit(:name, :crm, :phone, specialty_ids:[])
     end
+
+    def json_request
+      request.format = "json"
+    end 
 end
