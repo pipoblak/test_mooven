@@ -27,3 +27,12 @@ Things you may want to cover:
 rake db:create
 rake db:migrate
 rake db:seed
+
+* Tests available with RSPEC, RUN
+rspec spec/<DesiredTarget>/<TestName>
+
+availables Target
+  - models
+  - routing
+  - requests
+  - controllers
