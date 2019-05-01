@@ -9,5 +9,7 @@ class Doctor < ApplicationRecord
 
   accepts_nested_attributes_for :specialties, allow_destroy: true
 
-
+  def described_specialties
+    specialties.map{|specialty| specialty.name}.join(', ')
+  end 
 end

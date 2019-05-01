@@ -6,7 +6,7 @@ class DoctorsController < ApplicationController
   def index
     @doctors = Doctor.all
     respond_to do |format|
-      format.json { render json: @doctors }
+      format.json { render json: @doctors.to_json(:methods => [:described_specialties])}
     end
   end
 
