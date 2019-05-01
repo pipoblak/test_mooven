@@ -24,6 +24,10 @@ class AdmPanel extends React.Component {
           context.setState({ specialties: response.data })
         console.log(response)
       });
+    
+  }
+  componentDidUpdate() {
+    $("select").selectpicker()
   }
   render () {
     return (
@@ -64,6 +68,7 @@ class AdmPanel extends React.Component {
             return (
               <div key={doctor.id} className="doctor-modals">
                 <div className="modal fade" id={"edit-doctor-" + doctor.id} tabIndex="-1" role="dialog" aria-hidden="true">
+                  
                   <div className="modal-dialog" role="document">
                     <div className="modal-content">
                       <div className="modal-header">
@@ -89,11 +94,12 @@ class AdmPanel extends React.Component {
                             </div>
                             <div className="form-group col-md-6">
                               <label>Specialties</label>
-                              <select className="form-control">
+                              <select className="form-control" multiple defaultValue={doctor.specialty_ids} data-live-search="true">
                                 {this.state.specialties.map(function(specialty){
                                   return (<option key={specialty.id} value={specialty.id}>{specialty.name}</option>)
                                 })}
                               </select>
+                              
                             </div>
                           </div>
                         </form>

@@ -47,6 +47,8 @@ gem 'webpacker'
 gem 'react-rails'
 # HTML made simple
 gem "slim-rails"
+#Bootstrap select wrapper
+gem 'bootstrap-select-rails'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
