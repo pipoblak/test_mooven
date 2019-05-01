@@ -33,10 +33,20 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Tests in Rails
 gem 'rspec-rails'
+#Jquery Javascript Wrapper
 gem 'jquery-rails'
+# Bootstrap JS and SCSS Wrapper
 gem 'bootstrap', '~> 4.3.1'
+# Form generator with Bootstrap 
 gem "bootstrap_form", ">= 4.2.0"
+# Webpacker Wrapper
+gem 'webpacker'
+# React Wrapper
+gem 'react-rails'
+# HTML made simple
+gem "slim-rails"
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
