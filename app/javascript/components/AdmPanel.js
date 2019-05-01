@@ -23,7 +23,7 @@ class AdmPanel extends React.Component {
       <div className="container">
         <Header/>
         <div className="mt-5">
-          <h1>Doctors</h1>
+          <h1>Doctors <button type="button" className="btn btn-primary btn-sm m-0 p-1 ml-2">+ New Doctor</button></h1>
           <table className="table">
             <thead>
               <tr>
@@ -45,7 +45,7 @@ class AdmPanel extends React.Component {
                     <td>{doctor.phone}</td>
                     <td>{doctor.described_specialties}</td>
                     <td>
-                      <button type="button" className="btn btn-secondary btn-sm m-0 p-0 mr-2">Edit</button>
+                      <button type="button" className="btn btn-secondary btn-sm m-0 p-0 mr-2" href={"#edit-doctor-" + doctor.id} data-toggle="modal">Edit</button>
                       <button type="button" className="btn btn-danger btn-sm m-0 p-0">Destroy</button>
                     </td>
                   </tr>
@@ -53,6 +53,48 @@ class AdmPanel extends React.Component {
               })}
             </tbody>
           </table>
+          {this.state.doctors.map(function (doctor) {
+            return (
+              <div key={doctor.id} className="doctor-modals">
+                <div className="modal fade" id={"edit-doctor-" + doctor.id} tabIndex="-1" role="dialog" aria-hidden="true">
+                  <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h5 className="modal-title" >Edit Doctor - {doctor.id}</h5>
+                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div className="modal-body">
+                        <form>
+                          <div className="form-row">
+                            <div className="form-group col-md-6">
+                              <label>Name</label>
+                              <input type="email" className="form-control" placeholder="Name" name="doctor[name]" defaultValue={doctor.name} />
+                            </div>
+                            <div className="form-group col-md-6">
+                              <label>CRM</label>
+                              <input type="text" className="form-control" placeholder="CRM" name="doctor[crm]" defaultValue={doctor.crm} />
+                            </div>
+                            <div className="form-group col-md-6">
+                              <label>Phone</label>
+                              <input type="text" className="form-control" placeholder="Phone" name="doctor[phone]" defaultValue={doctor.crm} />
+                            </div>
+                            <div className="form-group col-md-6">
+                              <label>Specialties</label>
+                              <select className="form-control">
+                                
+                              </select>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     );
