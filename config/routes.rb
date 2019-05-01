@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
   resources :doctors
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get "/specialties" , to:"specialties#index"
   root to: "app#index"
 end

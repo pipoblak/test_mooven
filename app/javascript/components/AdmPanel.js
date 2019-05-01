@@ -6,7 +6,8 @@ class AdmPanel extends React.Component {
   constructor(){
     super();
     this.state = {
-      doctors: []
+      doctors: [],
+      specialties: []
     }
   }
   componentDidMount(){
@@ -17,6 +18,12 @@ class AdmPanel extends React.Component {
           context.setState({doctors: response.data})
         console.log(response)
     });
+    axios.get('/specialties')
+      .then(function (response) {
+        if (response.status == 200)
+          context.setState({ specialties: response.data })
+        console.log(response)
+      });
   }
   render () {
     return (
@@ -83,7 +90,9 @@ class AdmPanel extends React.Component {
                             <div className="form-group col-md-6">
                               <label>Specialties</label>
                               <select className="form-control">
-                                
+                                {this.state.specialties.map(function(specialty){
+                                  return (<option key={specialty.id} value={specialty.id}>{specialty.name}</option>)
+                                })}
                               </select>
                             </div>
                           </div>
@@ -94,7 +103,7 @@ class AdmPanel extends React.Component {
                 </div>
               </div>
             );
-          })}
+          }.bind(this))}
         </div>
       </div>
     );
