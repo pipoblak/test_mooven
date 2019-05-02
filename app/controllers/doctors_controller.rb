@@ -1,6 +1,8 @@
 class DoctorsController < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_action :set_doctor, only: [:show, :update, :destroy]
   before_action :json_request
+  
   # GET /doctors
   # GET /doctors.json
   def index
@@ -34,10 +36,8 @@ class DoctorsController < ApplicationController
   def update
     respond_to do |format|
       if @doctor.update(doctor_params)
-        format.html { redirect_to @doctor, notice: 'Doctor was successfully updated.' }
-        format.json { render :show, status: :ok, location: @doctor }
+        format.json { render json: @doctor, status: :ok}
       else
-        format.html { render :edit }
         format.json { render json: @doctor.errors, status: :unprocessable_entity }
       end
     end
@@ -59,7 +59,7 @@ class DoctorsController < ApplicationController
     end
 
     def doctor_params
-      params.require(:doctor).permit(:name, :crm, :phone, specialty_ids:[])
+      params.require(:doctor).permit(:id, :name, :crm, :phone, specialty_ids:[])
     end
 
     def json_request

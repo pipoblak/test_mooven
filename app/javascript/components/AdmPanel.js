@@ -9,25 +9,51 @@ class AdmPanel extends React.Component {
       doctors: [],
       specialties: []
     }
+    this.submitEditForm = this.submitEditForm.bind(this)
   }
   componentDidMount(){
     let context = this;
-    axios.get('/doctors')
-      .then(function (response) {
-        if(response.status == 200)
-          context.setState({doctors: response.data})
-        console.log(response)
-    });
     axios.get('/specialties')
       .then(function (response) {
-        if (response.status == 200)
+        if (response.status == 200){
           context.setState({ specialties: response.data })
-        console.log(response)
+          axios.get('/doctors')
+            .then(function (response) {
+              if(response.status == 200)
+                context.setState({doctors: response.data})
+          });
+        }
       });
+    
+    
     
   }
   componentDidUpdate() {
     $("select").selectpicker()
+  }
+  submitEditForm(e){
+    e.preventDefault();
+    let target = $(e.target);
+    let form = target.parents("form")
+    let specialty_ids =  form.find('select[name="doctor[specialty_ids]"]').val();
+    specialty_ids = specialty_ids.map(function(e){return parseInt(e)});
+    let data = {
+      doctor: {
+        id: form.find('input[name="doctor[id]"]').val(),
+        name: form.find('input[name="doctor[name]"]').val(),
+        crm: form.find('input[name="doctor[crm]"]').val(),
+        phone: form.find('input[name="doctor[phone]"]').val(),
+        specialty_ids: specialty_ids
+      }
+    }
+    axios.put('/doctors/' + form.attr("data-id"), data,  {responseType: 'json'})
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    console.log(data)
   }
   render () {
     return (
@@ -78,11 +104,12 @@ class AdmPanel extends React.Component {
                         </button>
                       </div>
                       <div className="modal-body">
-                        <form>
+                        <form data-id={doctor.id}>
                           <div className="form-row">
+                            <input type="text" className="form-control" name="doctor[id]" value={doctor.id} readOnly hidden/>
                             <div className="form-group col-md-6">
                               <label>Name</label>
-                              <input type="email" className="form-control" placeholder="Name" name="doctor[name]" defaultValue={doctor.name} />
+                              <input type="text" className="form-control" placeholder="Name" name="doctor[name]" defaultValue={doctor.name} />
                             </div>
                             <div className="form-group col-md-6">
                               <label>CRM</label>
@@ -94,13 +121,18 @@ class AdmPanel extends React.Component {
                             </div>
                             <div className="form-group col-md-6">
                               <label>Specialties</label>
-                              <select className="form-control" multiple defaultValue={doctor.specialty_ids} data-live-search="true">
+                              <select data-id={doctor.id} className="form-control" multiple defaultValue={doctor.specialty_ids} data-live-search="true" name="doctor[specialty_ids]" >
                                 {this.state.specialties.map(function(specialty){
                                   return (<option key={specialty.id} value={specialty.id}>{specialty.name}</option>)
                                 })}
                               </select>
-                              
                             </div>
+                            <div className="col-md-12">
+                              <div className="row justify-content-center">  
+                                <button className="btn btn-primary " type="submit" onClick={this.submitEditForm}> Send</button>
+                              </div>
+                            </div>
+                            
                           </div>
                         </form>
                       </div>
