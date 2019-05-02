@@ -24,9 +24,9 @@ class DoctorsController < ApplicationController
 
     respond_to do |format|
       if @doctor.save
-        format.json { render :show, status: :created, location: @doctor }
+        format.json { render json: @doctor, status: :created}
       else
-        format.json { render json: @doctor.errors, status: :unprocessable_entity }
+        format.json { render json: @doctor.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
@@ -38,7 +38,7 @@ class DoctorsController < ApplicationController
       if @doctor.update(doctor_params)
         format.json { render json: @doctor, status: :ok}
       else
-        format.json { render json: @doctor.errors, status: :unprocessable_entity }
+        format.json { render json: @doctor.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
@@ -48,8 +48,7 @@ class DoctorsController < ApplicationController
   def destroy
     @doctor.destroy
     respond_to do |format|
-      format.html { redirect_to doctors_url, notice: 'Doctor was successfully destroyed.' }
-      format.json { head :no_content }
+      format.json { head :no_content}
     end
   end
 
