@@ -4,6 +4,8 @@
   - Ruby 2.5.1
   - Yarn
   - ElasticSearch
+  
+* Ensure your elasticsearch is running on localhost:9200
 
 * Run Following Commands:
 
@@ -16,8 +18,6 @@
   > yarn install
   
   > rake searchkick:reindex:all
-
-* Ensure your elasticsearch is running on localhost:9200
 
 * Start server 
   > rails s
