@@ -17,5 +17,6 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require bootstrap-select
+//= require sweetalert2
 //= require_tree .
 

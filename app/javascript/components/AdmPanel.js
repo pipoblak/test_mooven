@@ -17,7 +17,7 @@ class AdmPanel extends React.Component {
     this.loadDoctorsAndSpecialties();
   }
   componentDidUpdate() {
-    $("select").selectpicker()
+    $("select.selectpicker").selectpicker()
   }
   loadDoctorsAndSpecialties(){
     let context = this;
@@ -54,7 +54,11 @@ class AdmPanel extends React.Component {
           context.loadDoctorsAndSpecialties();
           form.parents(".modal").modal("hide")
         }).catch(function(error){
-          alert(error.response.data.join(", "))
+          Swal.fire({
+            type: 'error',
+            title: 'Oops...',
+            text: error.response.data.join(", "),
+          })
         })
     }
     else if(form.attr("method") == "put"){
@@ -64,7 +68,11 @@ class AdmPanel extends React.Component {
           context.loadDoctorsAndSpecialties()
           form.parents(".modal").modal("hide")
         }).catch(function (error) {
-          alert(error.response.data.join(", "))
+          Swal.fire({
+            type: 'error',
+            title: 'Oops...',
+            text: error.response.data.join(", "),
+          })
         })
     }
 
@@ -74,12 +82,27 @@ class AdmPanel extends React.Component {
     let target = $(e.target);
     let doctor_id = target.parents("tr").attr("data-id")
     let context = this;
-    if (confirm('Do you really want to destroy Doctor "' + doctor_id + '"?')){
-      axios.delete('/doctors/' + doctor_id)
-        .then(function (response) {
-          context.loadDoctorsAndSpecialties()
-        })
-    }
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, destroy it!'
+    }).then((result) => {
+      if (result.value) {
+        axios.delete('/doctors/' + doctor_id)
+          .then(function (response) {
+            context.loadDoctorsAndSpecialties()
+            Swal.fire({
+              title: 'Deleted!',
+              text:'Doctor has been deleted.',
+              type:'success'})
+          })
+        
+      }
+    })
     
   }
   render () {
@@ -114,7 +137,7 @@ class AdmPanel extends React.Component {
                       </div>
                       <div className="form-group col-md-6">
                         <label>Specialties</label>
-                        <select data-id="new-doctor-specialties" className="form-control" multiple data-live-search="true" name="doctor[specialty_ids]" >
+                        <select data-id="new-doctor-specialties" className="form-control selectpicker" multiple data-live-search="true" name="doctor[specialty_ids]" >
                           {this.state.specialties.map(function (specialty) {
                             return (<option key={specialty.id} value={specialty.id}>{specialty.name}</option>)
                           })}
@@ -192,7 +215,7 @@ class AdmPanel extends React.Component {
                             </div>
                             <div className="form-group col-md-6">
                               <label>Specialties</label>
-                              <select data-id={doctor.id} className="form-control" multiple defaultValue={doctor.specialty_ids} data-live-search="true" name="doctor[specialty_ids]" >
+                              <select data-id={doctor.id} className="form-control selectpicker" multiple defaultValue={doctor.specialty_ids} data-live-search="true" name="doctor[specialty_ids]" >
                                 {this.state.specialties.map(function(specialty){
                                   return (<option key={specialty.id} value={specialty.id}>{specialty.name}</option>)
                                 })}

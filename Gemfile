@@ -49,6 +49,8 @@ gem 'react-rails'
 gem "slim-rails"
 #Bootstrap select wrapper
 gem 'bootstrap-select-rails'
+#SweetAlert Wrapper
+gem 'sweetalert2'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
