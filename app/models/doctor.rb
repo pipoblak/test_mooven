@@ -1,4 +1,8 @@
 class Doctor < ApplicationRecord
+  require 'elasticsearch/model'
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
+  
   has_many :doctor_specialties, dependent: :destroy
   has_many :specialties, through: :doctor_specialties, dependent: :destroy
 
