@@ -2,13 +2,15 @@
 
 * Requirements
   - Ruby 2.5.1
+  - Rails 5.2.3
   - Yarn
   - ElasticSearch
   
 * Ensure your elasticsearch is running on localhost:9200
 
 * Run Following Commands:
-
+  > bundle install
+  
   > rake db:create
   
   > rake db:migrate
