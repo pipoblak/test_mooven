@@ -51,9 +51,8 @@ gem "slim-rails"
 gem 'bootstrap-select-rails'
 #SweetAlert Wrapper
 gem 'sweetalert2'
-#Elastic Search Gems
-gem "elasticsearch-model"
-gem "elasticsearch-rails"
+#Elastic Search with SearchKick
+gem 'searchkick'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 

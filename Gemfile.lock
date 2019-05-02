@@ -78,11 +78,6 @@ GEM
       elasticsearch-transport (= 7.0.0)
     elasticsearch-api (7.0.0)
       multi_json
-    elasticsearch-model (6.0.0)
-      activesupport (> 3)
-      elasticsearch (> 1)
-      hashie
-    elasticsearch-rails (6.0.0)
     elasticsearch-transport (7.0.0)
       faraday
       multi_json
@@ -205,6 +200,10 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    searchkick (4.0.0)
+      activemodel (>= 5)
+      elasticsearch (>= 6)
+      hashie
     slim (4.0.1)
       temple (>= 0.7.6, < 0.9)
       tilt (>= 2.0.6, < 2.1)
@@ -260,8 +259,6 @@ DEPENDENCIES
   bootstrap_form (>= 4.2.0)
   byebug
   coffee-rails (~> 4.2)
-  elasticsearch-model
-  elasticsearch-rails
   jbuilder (~> 2.5)
   jquery-rails
   listen (>= 3.0.5, < 3.2)
@@ -271,6 +268,7 @@ DEPENDENCIES
   react-rails
   rspec-rails
   sass-rails (~> 5.0)
+  searchkick
   slim-rails
   spring
   spring-watcher-listen (~> 2.0.0)

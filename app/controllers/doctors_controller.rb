@@ -52,6 +52,12 @@ class DoctorsController < ApplicationController
     end
   end
 
+  def search 
+    @doctors = Doctor.search(params[:term], fields: ["name^10", "crm"], match: :word_start)
+    respond_to do |format|
+      format.json { render json: @doctors.to_json(:methods => [:described_specialties, :specialty_ids])}
+    end
+  end 
   private
     def set_doctor
       @doctor = Doctor.find(params[:id])

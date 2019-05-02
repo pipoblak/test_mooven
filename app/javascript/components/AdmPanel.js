@@ -108,7 +108,7 @@ class AdmPanel extends React.Component {
   render () {
     return (
       <div className="container">
-        <Header/>
+        <Header panelContext={this}/>
         <div className="mt-5">
           <h1>Doctors <button type="button" href="#new-doctor" data-toggle="modal" className="btn btn-primary btn-sm m-0 p-1 ml-2">+ New Doctor</button></h1>
           <div className="modal fade" id="new-doctor" tabIndex="-1" role="dialog" aria-hidden="true">

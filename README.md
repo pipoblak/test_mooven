@@ -10,6 +10,7 @@
   rake db:migrate
   rake db:seed
   yarn install
+  rake searchkick:reindex:all
 
 * Ensure your elasticsearch is running on localhost:9200
 
